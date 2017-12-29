@@ -36,13 +36,14 @@ for ((y=0; y<TOTAL_HEIGHT; y+=TILE_HEIGHT)); do
 	# InImage1 <- InImage2 <- InImage3 <- ... => OutImage
 	convert +append $(ls *.ppm | sort -n) ../$y.ppm
 	popd > /dev/null
-	rm -r $TMP_DIR/$y/
 done
 
 echo -en "\n"
+
+ORIGINAL=`pwd`
 pushd $TMP_DIR > /dev/null
 # InImage1 ↑ InImage2 ↑ InImage3 ↑ ... => OutImage
-convert -append $(ls *.ppm | sort -n) ../$(basename $1 .cpp).ppm
+convert -append $(ls *.ppm | sort -n) $ORIGINAL/$(basename $1 .cpp).ppm
 popd > /dev/null
 
 echo "done."
