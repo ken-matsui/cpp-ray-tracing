@@ -12,10 +12,7 @@ COUNT_MAX=$((($TOTAL_WIDTH / $TILE_WIDTH) * ($TOTAL_HEIGHT / $TILE_HEIGHT)))
 
 TMP_DIR=$(mktemp -d)
 mkdir -p $TMP_DIR
-trap "
-rm -r $TMP_DIR
-source print_time.sh $SECONDS
-" 0
+trap "rm -r $TMP_DIR" 0
 
 source print_progress.sh 0 $COUNT_MAX
 for ((y=0; y<TOTAL_HEIGHT; y+=TILE_HEIGHT)); do
@@ -49,3 +46,4 @@ convert -append $(ls *.ppm | sort -n) ../$(basename $1 .cpp).ppm
 popd > /dev/null
 
 echo "done."
+source print_time.sh $SECONDS
